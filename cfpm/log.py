@@ -1,9 +1,13 @@
+"""Logging utilities for cfpm."""
+
 import click
-import click_log
+import click_log  # type: ignore
 import logging
 
 
 class ColorFormatter(logging.Formatter):
+    """Colored formatter for logging."""
+
     colors = {
         "error": dict(fg="red"),
         "exception": dict(fg="red"),
@@ -13,6 +17,7 @@ class ColorFormatter(logging.Formatter):
     }
 
     def format(self, record):
+        """Format the specified record as text."""
         if not record.exc_info:
             level = record.levelname.lower()
             msg = record.getMessage()
@@ -26,6 +31,12 @@ class ColorFormatter(logging.Formatter):
 
 
 def logger_basic_config(logger: logging.Logger) -> None:
+    """
+    Configure a basic colored logger to stderr.
+
+    Args:
+        logger: The logger to configure.
+    """
     handler = click_log.ClickHandler()
     handler.setFormatter(ColorFormatter())
     logger.handlers = [handler]

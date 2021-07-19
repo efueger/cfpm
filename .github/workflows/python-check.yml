@@ -3,7 +3,7 @@ name: Python checks
 on: [push, pull_request]
 
 jobs:
-  build:
+  pytest:
     runs-on: ${{ matrix.os }}
     
     strategy:
@@ -14,8 +14,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
-    - name: Set up Python ${{ matrix.python-version }}
+
+    - name: Setup Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
@@ -23,14 +23,43 @@ jobs:
     - name: Install dependencies
       run: |
         pip install poetry
-        poetry install 
-        
+        poetry install
+      
+    - name: Test with pytest
+      run: poetry run pytest
+
+  check:  # Type checks, etc.
+    needs: [ pytest ]
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.x
+
+    - name: Install dependencies
+      run: |
+        pip install poetry
+        poetry install
+
     - name: Lint with flake8
       run: poetry run flake8
     
     - name: Static type check with mypy
-      continue-on-error: true
       run: poetry run mypy cfpm
-      
-    - name: Test with pytest
-      run: poetry run pytest
+    
+    - name: Docstring check with pydocstyle
+      run: poetry run pydocstyle cfpm
+
+    - name: Run coverage tests
+      run: |
+        poetry run pytest --cov=cfpm tests/
+        poetry run coverage xml -o coverage.xml
+
+    - name: Publish code coverage
+      uses: paambaati/codeclimate-action@v2.7.5
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
