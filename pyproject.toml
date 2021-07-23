@@ -2,6 +2,7 @@
 name = "cfpm"
 version = "0.1.0"
 description = "The C-Family Package Manager."
+readme = "README.md"
 license = "MIT"
 authors = ["Yi Cao <caoyi06@qq.com>"]
 repository = "https://github.com/project-cfpm/cfpm"
@@ -19,9 +20,9 @@ packages = [
 [tool.poetry.dependencies]
 python = "^3.6.2"
 click = "^8.0.1"
-click-log = "^0.3.2"
 tomli = "^1.0.4"
 appdirs = "^1.4.4"
+semver = "^2.13.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
@@ -37,4 +38,7 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-cfpm = "cfpm.console:cli"
+cfpm = "cfpm.console:main"
+
+[tool.black]
+line-length = 79

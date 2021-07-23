@@ -1,11 +1,11 @@
-name: Python checks
+name: Python Check
 
 on: [push, pull_request]
 
 jobs:
-  pytest:
+  test:
     runs-on: ${{ matrix.os }}
-    
+
     strategy:
       fail-fast: true
       matrix:
@@ -28,8 +28,8 @@ jobs:
     - name: Test with pytest
       run: poetry run pytest
 
-  check:  # Type checks, etc.
-    needs: [ pytest ]
+  style-check:  # Type checks, etc.
+    needs: [ test ]
     runs-on: ubuntu-latest
 
     steps:
