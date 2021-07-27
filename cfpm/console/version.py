@@ -14,12 +14,13 @@ CREDITS: Dict[str, List[str]] = {"Author": ["Yi Cao"]}
 @click.option("-c", "--credits", is_flag=True, help="Show credits")
 def version(credits: bool):
     """Show the current version of cfpm."""
+    ver_str = str(__version__)
     click.echo(
-        "cfpm version " + click.style(str(__version__), fg="bright_blue")
+        "cfpm version {}".format(click.style(ver_str, fg="bright_blue"))
     )
     if credits:
         print()
         for (key, value) in CREDITS.items():
             print(key)
             for name in value:
-                print("  " + name)
+                print("  {}".format(name))

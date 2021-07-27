@@ -1,4 +1,4 @@
-############################################## THE LITTLE LOVELY MAKEFILE ##############################################
+########################## THE LITTLE LOVELY MAKEFILE ##########################
 
 # List all available targets
 list:

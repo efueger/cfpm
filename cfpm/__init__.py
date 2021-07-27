@@ -2,4 +2,4 @@
 
 __version__ = "0.1.0"
 
-__all__ = ["console", "log"]
+__all__ = ["console", "exceptions", "logging", "utils"]

@@ -1,6 +1,7 @@
 """Click group of the main cli."""
+
 import click
-from ..log import logger, simple_verbosity_option
+from ..logging import logger, simple_verbosity_option
 
 
 @click.group(context_settings=dict(help_option_names=["-h", "--help"]))
