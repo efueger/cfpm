@@ -3,7 +3,7 @@
 import click
 import pathlib
 from typing import Dict
-from ..utils import vaild_name, error_exit, open_file
+from ..utils import vaild_name, handle
 from ..logging import logger
 from ..exceptions import BadConfigurationError
 
@@ -15,13 +15,16 @@ TEMPLATES["cfpm.toml"] = """[package]
 name = "%NAME%"
 version = "0.1.0"
 
+[standard]
+c = "c99"
+
 [[targets]]
 dir = "src"
 name = "hello"
 """
 
 TEMPLATES["src/hello.toml"] = """[target]
-type = bin
+type = "bin"
 headers = ["."]
 sources = ["."]
 """
@@ -72,21 +75,14 @@ def check_package_name(name: str) -> None:
 @click.argument("package_name", envvar="CFPM_NEW_PACKAGE_NAME")
 def new(package_name: str):
     """Create a new package."""
-    try:
-        check_package_name(package_name)
-    except BadConfigurationError as e:
-        logger.error(e)
-        error_exit()
+    handle(check_package_name, package_name)
     package_dir = pathlib.Path(".").absolute() / package_name
     for (dest, content) in TEMPLATES.items():
         write_file = package_dir / dest
         write_base_dir = pathlib.Path(*write_file.parts[:-1])
-        try:
-            write_base_dir.mkdir(parents=True, exist_ok=True)
-        except OSError as e:
-            logger.error(e)
-            error_exit()
-        with open_file(write_file, "w") as f:
+        handle(write_base_dir.mkdir, parents=True, exist_ok=True)
+        with handle(open, write_file, "w") as f:
+            logger.debug("Created file {}.".format(write_file))
             f.write(content.replace("%NAME%", package_name))
     logger.info(
         click.style(

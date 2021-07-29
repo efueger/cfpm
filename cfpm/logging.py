@@ -9,7 +9,7 @@ from typing import Callable
 class ClickHandler(logging.Handler):
     """Logging handler that uses click.echo."""
 
-    def __init__(self, use_stderr: bool = True):
+    def __init__(self, use_stderr: bool = False):
         """
         Initialize the handler.
 
@@ -92,12 +92,7 @@ def simple_verbosity_option(
 
 
 def logger_basic_config(logger: logging.Logger) -> None:
-    """
-    Configure a basic colored logger to stderr.
-
-    Args:
-        logger: The logger to configure.
-    """
+    """Configure a basic colored logger to stderr."""
     handler = ClickHandler()
     handler.setFormatter(ColorFormatter())
     logger.handlers = [handler]

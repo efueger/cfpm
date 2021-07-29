@@ -7,6 +7,7 @@
 | GitHub Action | [![GitHub Action](https://github.com/project-cfpm/cfpm/actions/workflows/python-check.yml/badge.svg)](https://github.com/project-cfpm/cfpm/actions/workflows/python-check.yml) |
 | Maintainability | [![Maintainability](https://api.codeclimate.com/v1/badges/54e8274e85502923de15/maintainability)](https://codeclimate.com/github/project-cfpm/cfpm/maintainability) |
 | Test Coverage | [![Test Coverage](https://api.codeclimate.com/v1/badges/54e8274e85502923de15/test_coverage)](https://codeclimate.com/github/project-cfpm/cfpm/test_coverage) |
+| Gitter | [![Gitter](https://badges.gitter.im/project-cfpm/community.svg)](https://gitter.im/project-cfpm/community) |
 
 `cfpm` is a package manager designed to manage C / C++ / Obj-C packages.
 
