@@ -1,4 +1,4 @@
-# `cfpm:` The C-Family Package Manager
+# `cfpm`: The C-Family Package Manager
 
 | Item | Badge |
 | :--- | :--- |
@@ -9,11 +9,11 @@
 | Test Coverage | [![Test Coverage](https://api.codeclimate.com/v1/badges/54e8274e85502923de15/test_coverage)](https://codeclimate.com/github/project-cfpm/cfpm/test_coverage) |
 | Gitter | [![Gitter](https://badges.gitter.im/project-cfpm/community.svg)](https://gitter.im/project-cfpm/community) |
 
-`cfpm` is a package manager designed to manage C / C++ / Obj-C packages.
+`cfpm` is a package manager designed to manage C / C++ packages.
 
 ## Table of Contents
 
-- [`cfpm:` The C-Family Package Manager](#cfpm-the-c-family-package-manager)
+- [`cfpm`: The C-Family Package Manager](#cfpm-the-c-family-package-manager)
   - [Table of Contents](#table-of-contents)
   - [Installation](#installation)
     - [Requirements](#requirements)

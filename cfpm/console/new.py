@@ -15,8 +15,8 @@ TEMPLATES["cfpm.toml"] = """[package]
 name = "%NAME%"
 version = "0.1.0"
 
-[standard]
-c = "c99"
+c_standard = "99"
+cpp_standard = "11"
 
 [[targets]]
 dir = "src"
@@ -45,7 +45,7 @@ void hello() {
 }
 """
 
-TEMPLATES["src/main.c"] = """#include <hello.h>
+TEMPLATES["src/main.cpp"] = """#include <hello.h>
 
 int main(int argc, char const *argv[]) {
     hello();
@@ -63,7 +63,7 @@ def check_package_name(name: str) -> None:
             "underscores.".format(name)
         )
     cwd = pathlib.Path(".").absolute()
-    logger.debug("Current path '{}'.".format(cwd))
+    logger.debug("Current path {}.".format(cwd))
     dest = cwd / name
     if dest.exists():
         raise BadConfigurationError(
@@ -75,13 +75,13 @@ def check_package_name(name: str) -> None:
 @click.argument("package_name", envvar="CFPM_NEW_PACKAGE_NAME")
 def new(package_name: str):
     """Create a new package."""
-    handle(check_package_name, package_name)
+    handle(check_package_name, BadConfigurationError, package_name)
     package_dir = pathlib.Path(".").absolute() / package_name
     for (dest, content) in TEMPLATES.items():
         write_file = package_dir / dest
         write_base_dir = pathlib.Path(*write_file.parts[:-1])
-        handle(write_base_dir.mkdir, parents=True, exist_ok=True)
-        with handle(open, write_file, "w") as f:
+        handle(write_base_dir.mkdir, OSError, parents=True, exist_ok=True)
+        with handle(open, OSError, write_file, "w") as f:
             logger.debug("Created file {}.".format(write_file))
             f.write(content.replace("%NAME%", package_name))
     logger.info(

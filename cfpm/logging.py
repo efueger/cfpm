@@ -2,10 +2,12 @@
 
 import click
 import logging
-from typing import Callable
+from typing import Callable, Optional
 
 
 # Originally comes from click-log
+
+
 class ClickHandler(logging.Handler):
     """Logging handler that uses click.echo."""
 
@@ -47,8 +49,11 @@ class ColorFormatter(logging.Formatter):
             level = record.levelname.lower()
             msg = record.getMessage()
             if level in self.colors:
-                prefix = click.style(
-                    "[{}] ".format(level.upper()), **self.colors[level]
+                prefix = (
+                    click.style(
+                        "[{}]".format(level.upper()), **self.colors[level]
+                    )
+                    + " "
                 )
                 msg = "\n".join(prefix + x for x in msg.splitlines())
             return msg
@@ -56,7 +61,7 @@ class ColorFormatter(logging.Formatter):
 
 
 def simple_verbosity_option(
-    logger: logging.Logger = None, *names: str, **kwargs
+    logger: Optional[logging.Logger] = None, *names: str, **kwargs
 ) -> Callable:
     """
     Add a `--verbosity, -v` option to the decorated command.
