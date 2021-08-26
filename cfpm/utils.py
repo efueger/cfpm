@@ -49,6 +49,12 @@ def ensure_path(
     return path
 
 
+def error(e: Exception) -> NoReturn:
+    """Report an error."""
+    logger.error(e)
+    error_exit()
+
+
 def handle(
     func: Callable,
     exception_type: Union[Type[Exception], Tuple[Type[Exception]]],
@@ -69,5 +75,4 @@ def handle(
     try:
         return func(*args, **kwargs)
     except exception_type as e:
-        logger.error(e)
-        error_exit()
+        error(e)

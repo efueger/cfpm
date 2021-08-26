@@ -25,7 +25,7 @@
 
 ### Requirements
 
-`cfpm` requires at least Python 3.6.2 to run.
+`cfpm` requires at least Python 3.7 to run.
 
 ### Use pip
 

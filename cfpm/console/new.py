@@ -33,7 +33,16 @@ TEMPLATES["src/hello.h"] = """#ifndef _HELLO_H_
 #define _HELLO_H_
 
 #include <stdio.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void hello();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 """
