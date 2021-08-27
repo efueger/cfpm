@@ -1,4 +1,4 @@
-# `cfpm`: The C-Family Package Manager
+# `cfpm`: C-Family Package Manager
 
 | Item | Badge |
 | :--- | :--- |
